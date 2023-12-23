@@ -1,7 +1,6 @@
 import React from 'react'
 import { ChildProps } from '@/types'
 import { Navbar } from './components'
-// import { Navbar } from '@/.next/types/app/(home)/components'
 
 const HomeLayout = ({ children }: ChildProps) => {
     return (
