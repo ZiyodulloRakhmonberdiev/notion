@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/ui/loader';
-import { SignInButton } from '@clerk/clerk-react';
+import { SignInButton, useUser } from '@clerk/clerk-react';
 import { useConvexAuth } from 'convex/react';
 import { Check } from 'lucide-react';
 import React from 'react'
@@ -15,6 +15,7 @@ interface PricingCardProps {
 
 export const PricingCart = ({ options, price, subtitle, title }: PricingCardProps) => {
     const { isAuthenticated, isLoading } = useConvexAuth();
+    const {user} =  useUser()
     return (
         <div className='flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-black dark:text-white'>
             <h4 className='mb-4 text-2xl font-semibold'>{title}</h4>
@@ -31,10 +32,10 @@ export const PricingCart = ({ options, price, subtitle, title }: PricingCardProp
                     <Loader />
                 </div>
             )}
-            {isAuthenticated && !isLoading && (
+            {user && !isLoading && (
                 <Button>Enter Notion</Button>
             )}
-            {!isAuthenticated && !isLoading && (
+            {!user && !isLoading && (
                 <SignInButton mode='modal'>
                     <Button>Log In</Button>
                 </SignInButton>

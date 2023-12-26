@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Loader } from '@/components/ui/loader'
-import { SignInButton } from '@clerk/clerk-react'
+import { SignInButton, useUser } from '@clerk/clerk-react'
 import { useConvexAuth } from 'convex/react'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -10,6 +10,7 @@ import React from 'react'
 
 export const Heroes = () => {
     const { isAuthenticated, isLoading } = useConvexAuth()
+    const { user } =  useUser()
 
     return (
         <>
@@ -21,12 +22,12 @@ export const Heroes = () => {
                         <Loader />
                     </div>
                 )}
-                {isAuthenticated && !isLoading && (
-                    <Button asChild>
+                {user && !isLoading && (
+                    <Button>
                         <Link href={"/documents"}>Enter Notion</Link> <ArrowRight className='h-4 w-4 ml-2' />
                     </Button>
                 )}
-                {!isAuthenticated && !isLoading && (
+                {!user && !isLoading && (
                     <SignInButton mode='modal'>
                         <Button>Get Notion Free</Button>
                     </SignInButton>
